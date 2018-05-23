@@ -1,0 +1,40 @@
+Inspired by http://x-algo.cn/index.php/2016/02/29/crf-name-entity-recognition/
+
+最终学习出来的模型，对复杂的地名识别准确率(F值)非常低，推测是：
+预料中对地名的标注多处是前后矛盾。例如 [华南/ns 地区/n]ns 标为地名实体，
+但是 东北/f 地 区/n 确分开标注，类似错误还有很多。
+
+1、template 特征函数
+
+
+2、process_data.py
+从原始预料中（已分词、标注词性的人民日报预料）提取地点tag,
+并进行重新标注(LOC_B,LOC_I,LOC_E,LOC_S),其他词皆为O,
+形成train.data/test.data
+
+3、run.sh
+训练模型，并基于test.data测试，其输出包括：模型文件model、
+train.rst训练过程打印、test.rsa测试集预测结果
+
+
+4、showResult.py
+统计test.rsa结果中的相关信息，包括召回率和准确率，比如：
+Word count: 197031
+Word_loc count: 5791
+真实位置标记个数： {'LOC_E': 197, 'LOC_B': 197, 'LOC_S': 5262, 'LOC_I': 95}
+预估位置标记个数： {'LOC_E': 149, 'LOC_B': 135, 'LOC_S': 5304, 'LOC_I': 57}
+正确标记个数： {'LOC_E': 124, 'LOC_B': 105, 'LOC_S': 5233, 'LOC_I': 42}
+------ LOC_E -------
+[LOC_E] P = 0.832215, R = 0.629442, F-score = 0.716763
+------ LOC_B -------
+[LOC_B] P = 0.777778, R = 0.532995, F-score = 0.632530
+------ LOC_S -------
+[LOC_S] P = 0.986614, R = 0.994489, F-score = 0.990536
+------ LOC_I -------
+[LOC_I] P = 0.736842, R = 0.442105, F-score = 0.552632
+------ All -------
+[All] P = 0.975022, R = 0.957051, F-score = 0.965953
+
+
+
+
