@@ -1,10 +1,10 @@
 Inspired by http://x-algo.cn/index.php/2016/02/29/crf-name-entity-recognition/
 
-最终学习出来的模型，对复杂的地名识别准确率(F值)非常低，推测是：
+最终学习出来的模型，对复杂的地名识别准确率(F值)比较低，推测是：
 预料中对地名的标注多处是前后矛盾。例如 [华南/ns 地区/n]ns 标为地名实体，
 但是 东北/f 地 区/n 确分开标注，类似错误还有很多。
 
-1、template 特征函数
+1、template 特征函数定义
 
 
 2、process_data.py
